@@ -123,7 +123,7 @@ $sidebar-light-bg: $white !default;
 $sidebar-light-hover-bg: rgba($black, .1) !default;
 $sidebar-light-color: $gray-800 !default;
 $sidebar-light-hover-color: $gray-900 !default;
-$sidebar-light-active-color: $black !default;
+$sidebar-light-active-color: $orange;
 $sidebar-light-submenu-bg: transparent !default;
 $sidebar-light-submenu-color: #777 !default;
 $sidebar-light-submenu-hover-color: #000 !default;
@@ -205,7 +205,7 @@ $button-line-height-xs: $line-height-sm !default;
 $button-font-size-xs: ($font-size-base * .75) !default;
 $button-border-radius-xs: .15rem !default;
 
-  
+
 // ELEVATION
 // --------------------------------------------------------
 $elevations: ();
@@ -216,7 +216,7 @@ $elevations: map-merge((
     4: unquote('0 14px 28px ' + rgba($black, 0.25) + ', 0 10px 10px ' + rgba($black, 0.22)),
     5: unquote('0 19px 38px ' + rgba($black, 0.30) + ', 0 15px 12px ' + rgba($black, 0.22)),
 ), $elevations);
-  
+
 // RIBBON
 // --------------------------------------------------------
 $ribbon-border-size: 3px !default;
