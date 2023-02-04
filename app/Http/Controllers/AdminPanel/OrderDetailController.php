@@ -15,16 +15,12 @@ class OrderDetailController extends Controller
     {
 
 
-    	// fetch data order model
 
-        // $orders = DB::table('orders')
-        //         ->select('order_id', DB::raw('max(value)'))
-        //         ->groupBy('attr_group_id')
-        //         ->get();
-    	$orders = Order::with('order_to_product','order_to_product.product')->orderBy('id','DESC')->get();
+    	$orders = Order::with('order_to_product')->orderBy('id','DESC')->get();
 
-    	return $orders;
-    	// // return view
+        //return $orders;
+
+
     	return view('AdminPanel.Order.order-list', [
     		"orders" => $orders
     	]);
@@ -35,7 +31,7 @@ class OrderDetailController extends Controller
 
 
         // fetch data order model
-        $orders = Order::where('status', 0)->with('order_to_product','order_to_product.product')->orderBy('id','DESC')->get();
+        $orders = Order::where('status', 0)->with('order_to_product','order_to_product.products')->orderBy('id','DESC')->get();
 
         //return $orders;
         // return view
@@ -49,7 +45,7 @@ class OrderDetailController extends Controller
 
 
         // fetch data order model
-        $orders = Order::where('status', 3)->with('order_to_product','order_to_product.product')->orderBy('id','DESC')->get();
+        $orders = Order::where('status', 3)->with('order_to_product','order_to_product.products')->orderBy('id','DESC')->get();
 
         //return $orders;
         // return view
@@ -63,7 +59,7 @@ class OrderDetailController extends Controller
 
 
         // fetch data order model
-        $orders = Order::where('status', 1)->with('order_to_product','order_to_product.product')->orderBy('id','DESC')->get();
+        $orders = Order::where('status', 1)->with('order_to_product','order_to_product.products')->orderBy('id','DESC')->get();
 
         //return $orders;
         // return view
@@ -77,7 +73,7 @@ class OrderDetailController extends Controller
 
 
         // fetch data order model
-        $orders = Order::where('status', 2)->with('order_to_product','order_to_product.product')->orderBy('id','DESC')->get();
+        $orders = Order::where('status', 2)->with('order_to_product','order_to_product.products')->orderBy('id','DESC')->get();
 
         //return $orders;
         // return view
@@ -140,5 +136,12 @@ class OrderDetailController extends Controller
 
    		return back()->with('message', 'This Order cancle Successfully!');
 
+    }
+
+    public function details($order_id)
+    {
+
+        $order_details = Order::with('order_to_product')->where('order_id',$order_id)->first();
+        return view('AdminPanel.Order.order_details', compact('order_details'));
     }
 }
