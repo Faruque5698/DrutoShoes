@@ -160,13 +160,6 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('product.flash.deal.all') }}" class="nav-link pl-3 {{($route == 'product.flash.deal.all')?'active': ''}}">
-                                <i class="fas fa-caret-right nav-icon"></i>
-                                <p class="text-{{ (request()->is('product/flash-deal/all')) ? 'warning' : '' }}">Flash Deal</p>
-                            </a>
-                        </li>
-
                     </ul>
                 </li>
 
@@ -224,6 +217,36 @@
                                 <p style="color:{{ (request()->is('admin/stock/details/product')) ? '#FF6666' : '' }}">Size & Color Stock</p>
                             </a>
                         </li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item
+                {{($route == 'admin.notification.index')?'menu-open': ''}}
+                ">
+                <a href="#" class="nav-link
+                {{($route == 'admin.notification.index')?'active': ''}}
+                ">
+                    <i style="color:{{ (request()->is('admin/notification*')) ? '#11183C' : '' }}" class="fas fa-bell nav-icon" style="color:{{ (request()->is('admin/notification*')) ? '#11183C' : '' }}"></i>
+                    <p>
+                    Send Notification
+                    <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.notification.index') }}" class="nav-link pl-3 {{($route == 'admin.notification.index')?'active': ''}}">
+                                <i class="fas fa-caret-right nav-icon"></i>
+                                <p class="text-{{ (request()->is('admin/notification/index')) ? 'warning' : '' }}">All user Notification</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                        <a href="" class="nav-link pl-3">
+                            <i class="fas fa-caret-right nav-icon"></i>
+                            <p>Single Notification</p>
+                        </a>
+                        </li>
+
                     </ul>
                 </li>
 
