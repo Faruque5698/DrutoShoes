@@ -34,10 +34,11 @@ Route::get('all-products',[\App\Http\Controllers\Api\ProductController::class,'p
 Route::get('just-landed',[\App\Http\Controllers\Api\ProductController::class,'justLanded']);
 
 Route::get('product/trending',[\App\Http\Controllers\Api\ProductController::class,'trending']);
-Route::get('product/popular',[\App\Http\Controllers\Api\ProductController::class,'popular']);
-Route::get('product/exclusive',[\App\Http\Controllers\Api\ProductController::class,'exclusive']);
+Route::get('product/feature',[\App\Http\Controllers\Api\ProductController::class,'exclusive']);
 
 Route::get('product/details/{id}',[\App\Http\Controllers\Api\ProductController::class,'pro_details']);
+
+Route::get('device-token', [\App\Http\Controllers\Api\AuthController::class,'deviceToken']);
 
 
 

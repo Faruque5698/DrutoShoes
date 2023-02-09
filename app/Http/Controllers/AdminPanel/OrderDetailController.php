@@ -122,7 +122,7 @@ class OrderDetailController extends Controller
 
     }
 
-     //order status  cancel = 3
+    // order status  cancel = 3
 
     public function cancel($order_id){
     	$order = Order::find($order_id);

@@ -87,11 +87,7 @@
                                             <td>{{$product->product_name}}</td>
                                             <td>{{number_format($product->price)}}</td>
                                             <td>{{number_format($product->discount_price)}}</td>
-                                            <!--<td>-->
 
-                                            <!--    <a href="{{ route('product.futurs', ["id"=>$product->id]) }}" class="btn btn-{{$product->future_product == 1 ? 'primary':'warning'}} btn-sm">{{$product->future_product == 1 ? 'On':'Off'}}</a>-->
-
-                                            <!--</td>-->
                                             <td>
                                                 <a href="{{ route('product.trands', ["id"=>$product->id]) }}" class="btn btn-{{$product->trand_product == 1 ? 'primary':'warning'}} btn-sm">{{$product->trand_product == 1 ? 'On':'Off'}}</a>
 
