@@ -66,7 +66,7 @@ class OrderController extends Controller
 
         }
 
-        $orders = Order::where('user_id','=',auth()->user()->id)->with('order_to_product', 'order_to_product.product')->get();
+        $orders = Order::where('user_id','=',auth()->user()->id)->with('order_to_product', 'order_to_product.products')->get();
         return ApiResponse::success($orders);
     }
 
