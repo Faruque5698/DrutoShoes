@@ -35,32 +35,40 @@
                 <div class="card-body">
                     <form action="{{ route('add.size') }}" enctype="multipart/form-data" method="post">
                         @csrf
-                        <div class="form-row">
+                        <div class="form-row mb-2">
+                           
                             <div class="col-12">
+                                <label>Size Name</label>
                                 <input type="text" class="form-control @error('size_name') is-invalid @enderror" name="size_name"  placeholder="Size Name">
+                                @error('size_name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('size_name')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                           
                         </div>
-                        <hr>
+                       
 
-                        <div class="form-row">
+                        <div class="form-row mb-2">
+                           <div class="col-12">
+                            <label>Status</label>
                             <select class="form-control @error('status') is-invalid @enderror" id="" name="status">
-                                <option selected>Status</option>
+                               
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
 
                             </select>
+                            @error('status')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                           </div>
 
                         </div>
-                        @error('status')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                       
 
-                        <hr>
-                        <div class="col-2">
-                            <input type="submit" class="form-control btn btn-primary" name="btn" id="btn" value="Add Size">
+                        <div class="form-row mb-2">
+                            <div class="col-2">
+                                <input type="submit" class="form-control btn btn-primary" name="btn" id="btn" value="Add Size">
+                            </div>
                         </div>
                     </form>
                 </div>

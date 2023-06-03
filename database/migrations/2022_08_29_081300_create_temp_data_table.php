@@ -15,10 +15,9 @@ class CreateTempDataTable extends Migration
     {
         Schema::create('temp_data', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->integer('size_id');
             $table->string('size_name');
-            $table->string('color_code');
-            $table->string('color_name');
             $table->integer('quantity');
             $table->timestamps();
         });

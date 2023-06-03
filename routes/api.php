@@ -38,13 +38,13 @@ Route::get('product/feature',[\App\Http\Controllers\Api\ProductController::class
 
 Route::get('product/details/{id}',[\App\Http\Controllers\Api\ProductController::class,'pro_details']);
 
-Route::get('device-token', [\App\Http\Controllers\Api\AuthController::class,'deviceToken']);
+
 
 
 
 
 Route::group(["middleware" => ["auth:api"]], function(){
-
+    Route::post('device-token', [\App\Http\Controllers\Api\AuthController::class,'deviceToken']);
     Route::get("profile", [\App\Http\Controllers\Api\AuthController::class, "profile"]);
     Route::post("profile/edit", [\App\Http\Controllers\Api\AuthController::class, "edit"]);
     Route::post("profile/image/update", [\App\Http\Controllers\Api\AuthController::class, "imageUpdate"]);

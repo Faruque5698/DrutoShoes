@@ -16,13 +16,11 @@ class CreateColorSizeQtiesTable extends Migration
         Schema::create('color_size_qties', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')
-                    ->constrained()
+                    ->constrained('products')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
             $table->integer('size_id');
             $table->string('size_name');
-            $table->string('color_name');
-            $table->string('color_code');
             $table->integer('size_color_qty');
             $table->timestamps();
         });

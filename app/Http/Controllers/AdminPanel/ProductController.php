@@ -67,15 +67,19 @@ class ProductController extends Controller
     {
 
 
-        $temp_data = new TempData();
-        $temp_data->size_id = $request->size_id;
-        $temp_data->size_name = $request->size_text;
-        $temp_data->color_code = $request->color_code;
-        $temp_data->color_name = $request->color_text;
-        $temp_data->quantity = $request->size_color_qty;
-        $temp_data->save();
+        $ext = TempData::where('size_id',$request->size_id)->first();
 
-        $datas = TempData::get();
+        if(empty($ext)){
+            $temp_data = new TempData();
+            $temp_data->user_id = auth()->user()->id;
+            $temp_data->size_id = $request->size_id;
+            $temp_data->size_name = $request->size_text;
+            $temp_data->quantity = $request->size_color_qty ?? 1;
+            $temp_data->save();
+        }
+
+
+        $datas = TempData::where('user_id', auth()->user()->id)->get();
 
 
 
@@ -84,12 +88,45 @@ class ProductController extends Controller
 
 
         foreach($datas as $data){
-            echo $row = "<div class='form-row mb-1 mt-1'><div class='col-4'><input type='text' value='".$data->size_name."' class='form-control' disabled></div><div class='col-4'><input type='text' value='".$data->color_name."' class='form-control' disabled></div><div class='col-2'><input type='number' id='subQunatity' value='".$data->quantity."' class='form-control' disabled></div><div class='col-2 text-center'><button id='remove' class='ml-2 btn btn-danger w-100'>remove</button></div></div>";
+            echo $row = "<div class='form-row mb-1 mt-1'><div class='col-5'><input type='text' value='".$data->size_name."' class='form-control' disabled></div><div class='col-5'><input type='number' id='subQunatity' value='".$data->quantity."' class='form-control' disabled></div><div class='col-2 text-center'><button type='button' id='remove' value='".$data->id."' class=' btn btn-danger w-100'>remove</button></div></div>";
         }
 
 
 
 
+
+    }
+
+    public function deleteColorSize($id)
+    {
+
+        $tem_data = TempData::find($id);
+
+        $tem_data->delete();
+
+
+        $datas = TempData::where('user_id', auth()->user()->id)->get();
+        $row = "<div class='form-row mb-1 mt-1'><div class='col-5'><input type='text' value='' class='form-control' disabled></div><div class='col-5'><input type='text' value='' class='form-control' disabled></div><div class='col-2'><input type='number' value='' class='form-control' disabled></div><div class='col-2 text-center'><button type='button' id='remove' class='ml-2 btn btn-danger w-100'>remove</button></div></div>";
+
+
+        foreach($datas as $data){
+            echo $row = "<div class='form-row mb-1 mt-1'><div class='col-5'><input type='text' value='".$data->size_name."' class='form-control' disabled></div><div class='col-5'><input type='number' id='subQunatity' value='".$data->quantity."' class='form-control' disabled></div><div class='col-2 text-center'><button type='button' id='remove' value='".$data->id."' class=' btn btn-danger w-100'>remove</button></div></div>";
+        }
+
+
+    }
+
+    public function varientDelete()
+    {
+        Tempdata::truncate();
+
+        $datas = TempData::get();
+        $row = "<div class='form-row mb-1 mt-1'><div class='col-5'><input type='text' value='' class='form-control' disabled></div><div class='col-5'><input type='text' value='' class='form-control' disabled></div><div class='col-2'><input type='number' value='' class='form-control' disabled></div><div class='col-2 text-center'><button type='button' id='remove' class='ml-2 btn btn-danger w-100'>remove</button></div></div>";
+
+
+        foreach($datas as $data){
+            echo $row = "<div class='form-row mb-1 mt-1'><div class='col-5'><input type='text' value='".$data->size_name."' class='form-control' disabled></div><div class='col-5'><input type='text' value='".$data->color_name."' class='form-control' disabled></div><div class='col-2'><input type='number' id='subQunatity' value='".$data->quantity."' class='form-control' disabled></div><div class='col-2 text-center'><button type='button' id='remove' value='".$data->id."' class=' btn btn-danger w-100'>remove</button></div></div>";
+        }
 
     }
 
@@ -108,50 +145,17 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        // $this->validate($request, [
-        //     'product_name' => 'required',
-        //     'discount_type'=>'required',
-        //     'price' => 'required',
-        //     'discount_price' => 'required',
-        //     'discription' => 'required',
-        //     'image' => 'required',
-        //     'image' => 'mimes:jpeg,jpg,png',
-        //     'image1' => 'mimes:jpeg,jpg,png',
-        //     'image2' => 'mimes:jpeg,jpg,png',
-        //     'image3' => 'mimes:jpeg,jpg,png',
-        //     'status' => 'required|in:active,inactive'
-        // ]);
+        $this->validate($request, [
+            'product_name' => 'required',
+            'price' => 'required',
+            'discription' => 'required',
+            'image' => 'required',
+        ]);
 
-
-
-
-
-
-        // return $temp_datas;
-
-
-
-        $total = TempData::sum('quantity');
-        // $colors = [];
-        // foreach($temp_datas as $color){
-        //      $colors[] =  $color->color_code;
-        // };
-
-
-
-
-        // $sizes = [];
-
-        // foreach($temp_datas as $size){
-        //   $sizes[] = $size->size_name;
-        // };
-
-        // return $sizes;
-
-
+        $total_quantity = TempData::sum('quantity');
         $slug_name =  Str::slug(Str::lower($request->product_name));
         $sku = "PRO"."-"."BD"."-".rand(11111,99999);
-        $total_price = $request->quantity * $request->discount_price;
+        $total_price = $total_quantity * intval($request->discount_price);
 
         if ($request->hasFile('image')){
             $galleryImages = [];
@@ -174,9 +178,6 @@ class ProductController extends Controller
                 $product_image ->move($directory,$imageName1);
 
 
-            //    GalleryProduct::where('id', $gallery)->update([
-            //         'image1' => $imageUrl1,
-            //     ]);
 
             $galleryImages[]  = $imageUrl1;
             }
@@ -187,10 +188,6 @@ class ProductController extends Controller
                 $directory = 'assets/images/product/';
                 $imageUrl2 = $directory.$imageName2;
                 $product_image ->move($directory,$imageName2);
-
-                // GalleryProduct::where('id', $gallery)->update([
-                //     'image2' => $imageUrl2,
-                // ]);
 
                 $galleryImages[]  = $imageUrl2;
 
@@ -203,16 +200,10 @@ class ProductController extends Controller
                 $imageUrl3 = $directory.$imageName3;
                 $product_image ->move($directory,$imageName3);
 
-                //  GalleryProduct::where('id', $gallery)->update([
-                //     'image3' => $imageUrl3,
-                // ]
 
                 $galleryImages[]  = $imageUrl3;
 
             }
-
-            // return $galleryImages;
-
 
             if ($product_image) {
                $product_id = Product::insertGetId([
@@ -222,15 +213,14 @@ class ProductController extends Controller
                     'category_id' => $request->category_id,
                     'subcategory_id' => $request->subcategory_id,
                     'discount_rate' => $request->discount_rate,
-                    'price' => $request->price,
-                    'quantity' => $request->quantity,
+                    'price' => intval($request->price),
+                    'quantity' => $total_quantity,
                     'discount_price' => $request->discount_price,
                     'discription' => $request->discription,
                     'image' => $imageUrl,
                     'images' => json_encode($galleryImages),
                     'slug' => $slug_name,
                     'sku' => $sku,
-                    'credit'=> $request->discount_type,
                     'total_price' =>$total_price,
                     'status' => $request->status,
                     'created_at' => Carbon::now(),
@@ -248,195 +238,29 @@ class ProductController extends Controller
                                 $color_size_qty->product_id = $product_id;
                                 $color_size_qty->size_id = $color_size['size_id'];
                                 $color_size_qty->size_name = $color_size['size_name'];
-                                $color_size_qty->color_code = $color_size['color_code'];
-                                $color_size_qty->color_name = $color_size['color_name'];
                                 $color_size_qty->size_color_qty = $color_size['quantity'];
                                 $color_size_qty->save();
                             }
+
+                            $stock_product = new StockProduct();
+                            $stock_product->product_id = $product_id;
+                            $stock_product->total_qty = $total_quantity;
+                            $stock_product->last_qty = $total_quantity;
+                            $stock_product->sale_qty = 0;
+                            $stock_product->save();
                        }
 
                 }
 
-
-              if (!$color_sizes) {
-                  $stock_product = new StockProduct();
-                  $stock_product->product_id = $product_id;
-                  $stock_product->total_qty = $total;
-                  $stock_product->last_qty = $total;
-                  $stock_product->sale_qty = 0;
-                  $stock_product->save();
-              }else{
-                  $stock_product = new StockProduct();
-                  $stock_product->product_id = $product_id;
-                  $stock_product->total_qty = $request->quantity;
-                  $stock_product->last_qty = $request->quantity;
-                  $stock_product->sale_qty = 0;
-                  $stock_product->save();
-              }
-
-
-
             }
 
         }
 
-        $temp_datas = TempData::all();
-        
-        
-        // $sizes = \App\Models\Size::where('status', 'active')->get();
-        
-        // foreach($sizes as $size){
-        //   $s = []; 
-        // }
-        
-        
-        
+        $temp_datas = TempData::where('user_id', auth()->user()->id)->get();
 
-        $s6 = [];
-        $m7 = [];
-        $l8 = [];
-        $xl9 = [];
-        $xxl10 = [];
-        
-        $s40 = [];
-        $m41 = [];
-        $l42 = [];
-        $x43 = [];
-        $xxl44 = [];
-
-        foreach($temp_datas as $data){
-            if($data->size_name == 6){
-                $s6[] = $data->color_code;
-            }
-
-            if($data->size_name == 7){
-                $m7[] = $data->color_code;
-            }
-
-            if($data->size_name == 8){
-                $l8[] = $data->color_code;
-            }
-
-            if($data->size_name == 9){
-                $xl9[] = $data->color_code;
-            }
-
-            if($data->size_name == 10){
-                $xxl10[] = $data->color_code;
-            }
-            
-            if($data->size_name == 40){
-                $s40[] = $data->color_code;
-            }
-
-            if($data->size_name == 41){
-                $m41[] = $data->color_code;
-            }
-
-            if($data->size_name == 42){
-                $l42[] = $data->color_code;
-            }
-
-            if($data->size_name == 43){
-                $xl43[] = $data->color_code;
-            }
-
-            if($data->size_name == 44){
-                $xxl44[] = $data->color_code;
-            }
+        foreach($temp_datas as $temp_item){
+            $temp_item->delete();
         }
-
-        if(!empty($s6)){
-            $color_per_sizes = new ColorPerSize();
-            $color_per_sizes->product_id = $product_id;
-            $color_per_sizes->size_name  = 6;
-            $color_per_sizes->color_code = $s6;
-            $color_per_sizes->save();
-
-        }
-
-        if(!empty($m7)){
-            $color_per_sizes = new ColorPerSize();
-            $color_per_sizes->product_id = $product_id;
-            $color_per_sizes->size_name  = 7;
-            $color_per_sizes->color_code = $m7;
-            $color_per_sizes->save();
-
-        }
-
-        if(!empty($l)){
-            $color_per_sizes = new ColorPerSize();
-            $color_per_sizes->product_id = $product_id;
-            $color_per_sizes->size_name  = 8;
-            $color_per_sizes->color_code =$l8;
-            $color_per_sizes->save();
-
-        }
-
-        if(!empty($xl9)){
-            $color_per_sizes = new ColorPerSize();
-            $color_per_sizes->product_id = $product_id;
-            $color_per_sizes->size_name  = 9;
-            $color_per_sizes->color_code = $xl9;
-            $color_per_sizes->save();
-
-        }
-
-        if(!empty($xxl10)){
-            $color_per_sizes = new ColorPerSize();
-            $color_per_sizes->product_id = $product_id;
-            $color_per_sizes->size_name  = 10;
-            $color_per_sizes->color_code = $xxl10;
-            $color_per_sizes->save();
-
-        }
-        
-         if(!empty($s40)){
-            $color_per_sizes = new ColorPerSize();
-            $color_per_sizes->product_id = $product_id;
-            $color_per_sizes->size_name  = 40;
-            $color_per_sizes->color_code = $s40;
-            $color_per_sizes->save();
-
-        }
-
-        if(!empty($m41)){
-            $color_per_sizes = new ColorPerSize();
-            $color_per_sizes->product_id = $product_id;
-            $color_per_sizes->size_name  = 41;
-            $color_per_sizes->color_code = $m41;
-            $color_per_sizes->save();
-
-        }
-
-        if(!empty($l42)){
-            $color_per_sizes = new ColorPerSize();
-            $color_per_sizes->product_id = $product_id;
-            $color_per_sizes->size_name  = 42;
-            $color_per_sizes->color_code =$l42;
-            $color_per_sizes->save();
-
-        }
-
-        if(!empty($xl43)){
-            $color_per_sizes = new ColorPerSize();
-            $color_per_sizes->product_id = $product_id;
-            $color_per_sizes->size_name  = 43;
-            $color_per_sizes->color_code = $xl43;
-            $color_per_sizes->save();
-
-        }
-
-        if(!empty($xxl44)){
-            $color_per_sizes = new ColorPerSize();
-            $color_per_sizes->product_id = $product_id;
-            $color_per_sizes->size_name  = 44;
-            $color_per_sizes->color_code = $xxl44;
-            $color_per_sizes->save();
-
-        }
-
-        TempData::truncate();
 
 
         return redirect()->route('admin.product')->with('message', 'Product Uplopad Successfully');
@@ -527,78 +351,73 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product_edit = Product::find($id);
+        $edit = Product::find($id);
         $categories = Category::all();
         $brands = Brand::all();
         $sizes = Size::all();
         $colors = Color::all();
 
-        return view('AdminPanel.Product.edit_product', compact('product_edit','categories','brands','sizes','colors'));
+        return view('AdminPanel.Product.edit_product', compact('edit','categories','brands','sizes','colors'));
     }
 
     public function update(Request $request)
     {
 
-        $slug_name =  Str::slug(Str::lower($request->product_name));
-        $sku = Str::substr($request->product_name,0,3)."-".Str::random();
-        $total_price = $request->quantity * $request->discount_price;
+        $this->validate($request, [
+            'product_name' => 'required',
+            'price' => 'required',
+            'discription' => 'required',
+            'image' => 'required',
+        ]);
 
-        if ($request->hasFile('image')) {
+        $total_quantity = ColorSizeQty::where('product_id', $request->id)->sum('size_color_qty');
+        $slug_name =  Str::slug(Str::lower($request->product_name));
+        $sku = "PRO"."-"."BD"."-".rand(11111,99999);
+        $total_price = $total_quantity * intval($request->discount_price);
+
+        if ($request->hasFile('image')){
+
+
+
             $product_image = $request->file('image');
-            $imageExt = $product_image->getClientOriginalExtension();
-            $imageName = time().'.'.$imageExt;
+            $ext = $product_image->getClientOriginalExtension();
+            $imageName = time().'-'.'.'.$ext;
             $directory = 'assets/images/product/';
             $imageUrl = $directory.$imageName;
             $product_image -> move($directory,$imageName);
 
 
+
+
             if ($product_image) {
-                Product::where('id', $request->id)->update([
+                Product::where('id',$request->id)->update([
+                    'user_id' => auth()->user()->id,
                     'product_name' => $request->product_name,
-                    // 'brand_id' => $request->brand_id,
-                    // 'category_id' => $request->category_id,
-                    // 'subcategory_id' => $request->subcategory_id,
-                    // 'size_id' => $request->size_id,
-                    // 'color_id' => $request->color_id,
-                    // 'color_id' => $request->color_id,
-                    'price' => $request->price,
-                    'quantity' => $request->quantity,
+                    'brand_id' => $request->brand_id,
+                    'category_id' => $request->category_id,
+                    'subcategory_id' => $request->subcategory_id,
+                    'discount_rate' => $request->discount_rate,
+                    'price' => intval($request->price),
                     'discount_price' => $request->discount_price,
                     'discription' => $request->discription,
                     'image' => $imageUrl,
                     'slug' => $slug_name,
                     'sku' => $sku,
-                    'discount_type'=> $request->discount_type,
-                    'total_price' =>$total_price,
                     'status' => $request->status,
-                    'updated_at' => Carbon::now(),
+                    'created_at' => Carbon::now(),
                 ]);
             }
-            return redirect()->route('admin.product')->with('message', 'Product Update Successfully');
-        }else{
 
-           Product::where('id', $request->id)->update([
-                    'product_name' => $request->product_name,
-                    //'brand_id' => $request->brand_id,
-                    // 'category_id' => $request->category_id,
-                    // 'subcategory_id' => $request->subcategory_id,
-                    // 'size_id' => $request->size_id,
-                    // 'color_id' => $request->color_id,
-                    // 'color_id' => $request->color_id,
-                    'price' => $request->price,
-                    'quantity' => $request->quantity,
-                    'discount_price' => $request->discount_price,
-                    'discription' => $request->discription,
-                    'slug' => $slug_name,
-                    'sku' => $sku,
-                    'discount_price' => $request->discount_price,
-                    'total_price' =>$total_price,
-                    'status' => $request->status,
-                    'updated_at' => Carbon::now(),
-                ]);
         }
 
-        return redirect()->route('admin.product')->with('message', 'Product Update Successfully');
+        $temp_datas = TempData::where('user_id', auth()->user()->id)->get();
+
+        foreach($temp_datas as $temp_item){
+            $temp_item->delete();
+        }
+
+
+        return redirect()->route('admin.product')->with('message', 'Product Uplopad Successfully');
 
 
     }

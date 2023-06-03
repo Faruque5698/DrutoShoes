@@ -82,7 +82,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','middleware'=>'checkRole'],
     Route::post('category/update',[CategoryController::class,'update'])->name('category_update');
     Route::get('category/unpublished/{id}',[CategoryController::class,'unpublished'])->name('category_unpublished');
     Route::get('category/published/{id}',[CategoryController::class,'published'])->name('category_published');
-    Route::delete('category-delete/{id}',[CategoryController::class,'destroy'])->name('category_destroy');
+    Route::post('category/delete',[CategoryController::class,'destroy'])->name('admin.category.delete');
 
 
     Route::get('subcategory',[SubcategoryController::class,'index'])->name('admin.subcategory');
@@ -102,7 +102,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','middleware'=>'checkRole'],
     Route::post('brand/update', [BrandController::class, 'update'])->name('brnad.update');
     Route::get('brand/unpublished/{id}',[BrandController::class,'unpublished'])->name('brand_unpublished');
     Route::get('brand/published/{id}',[BrandController::class,'published'])->name('brand_published');
-    Route::delete('Brnad-delete/{id}',[BrandController::class,'destroy'])->name('brand_delete');
+    Route::post('brand/delete',[BrandController::class,'destroy'])->name('admin.brand.delete');
 
     Route::get('color',[ColorController::class,'index'])->name('admin.color');
     Route::get('color/add',[ColorController::class,'add'])->name('add.color');
@@ -127,6 +127,9 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','middleware'=>'checkRole'],
     Route::post('product/getcolor',[ProductController::class, 'getColor'])->name('product.colorid');
     Route::post('product/getsize',[ProductController::class, 'getSize'])->name('product.sizeid');
     Route::post('product/store-size-color-qty',[ProductController::class, 'storeColorSize'])->name('product.store-size-color-qty');
+    Route::get('product/colorPersize',[ProductController::class, 'colorPerSize'])->name('product.colorPerSize');
+    Route::get('product/color-per-size/{id}',[ProductController::class, 'deleteColorSize']);
+    Route::get('product/varientdelete', [ProductController::class, 'varientDelete'])->name('product.varient.delete');
     Route::post('product/add',[ProductController::class, 'store'])->name('product.add');
     Route::get('product/status/{id}',[ProductController::class, 'status'])->name('product.status');
     Route::get('product/futurs/{id}',[ProductController::class, 'futurs'])->name('product.futurs');

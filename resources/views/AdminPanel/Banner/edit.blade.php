@@ -37,65 +37,84 @@
                     <form action="{{ route('banner.update', $edit->id) }}" enctype="multipart/form-data" method="post">
                         @csrf
                         @method('PUT')
-                        <div class="form-row">
+                        <div class="form-row mb-2">
                             <div class="col-12">
+                                <label>Title</label>
                                  <input type="hidden" class="form-control" name="id" value="{{ $edit->id }}">
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $edit->title }}">
+                                @error('title')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('title')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                           
                         </div>
-                         <hr>
-                          <div class="form-row">
+                          <div class="form-row mb-2">
                             <div class="col-12">
+                                <label>Sub title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" name="sub_title"  value="{{ $edit->sub_title }}">
+                                @error('title')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('title')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                           
                         </div>
-                        <hr>
-                        <div class="form-row">
+                        <div class="form-row mb-2">
                             <div class="col-12">
+                                <label>Description</label>
                                 <textarea id="editor" class="form-control @error('description') is-invalid @enderror" name="text" rows="5" cols="5"   placeholder="Text">{{ $edit->text }}</textarea>
+                                @error('summary')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('summary')
+                           
+                        </div>
+
+                        <div class="form-row mb-2">
+                           <div class="col-12">
+                            <label>Image</label>
+                            <input type="file" name="photo" id="cat_image" class="form-control @error('photo') is-invalid @enderror" placeholder="">
+                            @error('photo')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
+                           </div>
                         </div>
-                        <hr>
+                       
 
-                        <div class="form-row">
-                            <input type="file" name="photo" id="cat_image" class="@error('photo') is-invalid @enderror" placeholder="">
+                        <div class="form-row mb-2">
+                            <div class="col-12">
+                                <img src="{{ asset($edit->photo) }}" alt="" id="cat_image_preview" width="100px" height="100px" class="mt-2">
+                            </div>
                         </div>
-                        @error('photo')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                 
 
-                        <img src="{{ asset($edit->photo) }}" alt="" id="cat_image_preview" width="100px" height="100px" class="mt-2">
-                        <hr>
+                        <div class="form-row mb-2">
+                            <div class="col-12">
+                                <label>Status</label>
+                                <select class="form-control @error('status') is-invalid @enderror" id="" name="status">
+                                
+                                    <option {{ $edit->status == 'active' ? 'selected' : ' ' }} value="active">Active</option>
+                                    <option {{ $edit->status == 'inactive' ? 'selected' : ' ' }} value="inactive">Inactive</option>
 
-                        <div class="form-row">
-                            <select class="form-control @error('status') is-invalid @enderror" id="" name="status">
-                                <option selected>Status</option>
-                                <option {{ $edit->status == 'active' ? 'selected' : ' ' }} value="active">Active</option>
-                                <option {{ $edit->status == 'inactive' ? 'selected' : ' ' }} value="inactive">Inactive</option>
+                                </select>
 
-                            </select>
+                                @error('status')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                                 </div>
+                                
 
                         </div>
-                        @error('status')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+
+                       
 
 
 
 
-                        <hr>
-                        <div class="col-2">
-                            <input type="submit" class="form-control btn btn-primary" name="btn" id="btn" value="Add Banner">
-                        </div>
+                        <div class="form-row mb-2">
+                            <div class="col-12">
+                                <input type="submit" class="btn btn-primary" name="btn" id="btn" value="Update Banner">
+                            </div>
+                        </div> 
                     </form>
                 </div>
                 <!-- /.card-body -->

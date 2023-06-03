@@ -22,6 +22,7 @@ class CreateGenarelSettingsTable extends Migration
             $table->string('footer_text')->nullable();
             $table->string('address')->nullable();
             $table->string('fav_icon')->nullable();
+            $table->string('currency')->nullable();
             $table->string('logo')->nullable();
             $table->enum('status',['active','inactive'])->default('active');
             $table->timestamps();

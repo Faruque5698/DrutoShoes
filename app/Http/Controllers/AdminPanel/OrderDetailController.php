@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\AdminPanel;
 
+use App\Models\User;
 use App\Models\Order;
+use App\Services\FCMService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class OrderDetailController extends Controller
@@ -97,6 +98,16 @@ class OrderDetailController extends Controller
                 Order::where('id',$order->id)->update([
                     'status' => 1
                 ]);
+
+                $user = User::find($order->user_id);
+
+                FCMService::send(
+                    $user->device_token,
+                    [
+                        'title' => "Approve Order",
+                        'body' => "Your Order Successfully Approve!",
+                    ]
+                );
         }
 
 
@@ -114,6 +125,16 @@ class OrderDetailController extends Controller
                 Order::where('id',$order->id)->update([
                     'status' => 2
                 ]);
+
+                $user = User::find($order->user_id);
+
+                FCMService::send(
+                    $user->device_token,
+                    [
+                        'title' => "Success",
+                        'body' => "Your Order Successfully Delivered!",
+                    ]
+                );
             }
 
 
@@ -132,6 +153,16 @@ class OrderDetailController extends Controller
             Order::where('id',$order->id)->update([
                 'status' => 3
             ]);
+
+            $user = User::find($order->user_id);
+
+                FCMService::send(
+                    $user->device_token,
+                    [
+                        'title' => "Cancel Order",
+                        'body' => "Your Order Successfully Cancel!",
+                    ]
+                );
         }
 
    		return back()->with('message', 'This Order cancle Successfully!');

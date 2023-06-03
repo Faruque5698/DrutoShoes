@@ -52,7 +52,7 @@
                                         <th>Sl</th>
                                         <th>Size Name</th>
                                         <th>Publication Status</th>
-                                        {{-- <th>Action</th> --}}
+                                        <th>Action</th>
 
                                     </tr>
                                     </thead>
@@ -67,14 +67,14 @@
                                          <td>{{ $data->size_name }}</td>
                                          <td>{{ $data->status == "active" ? "Active" : "Inactive" }}</td>
 
-                                         {{-- <td>
+                                         <td>
                                                  <a href="{{ route('status.size', ["id"=>$data->id]) }}" class="btn btn-sm btn-{{ $data->status == "active" ? "info" : "warning" }}"><i class="fa fa-{{ $data->status == "active" ? "arrow-up" : "arrow-down" }}"></i></a>
 
                                                 <a href="{{ route('size.edit',["id"=>$data->id] ) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
 
                                                 <a href="" class="btn btn-sm btn-danger delete" data-toggle="modal" data-target="#modal-size" ><i class="fa fa-trash"></i></a>
                                             </td>
-                                        </tr> --}}
+                                        </tr>
 
 
 

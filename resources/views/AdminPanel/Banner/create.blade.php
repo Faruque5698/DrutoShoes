@@ -36,63 +36,80 @@
                 <div class="card-body">
                     <form action="{{route('banner.store')}}" enctype="multipart/form-data" method="post">
                         @csrf
-                        <div class="form-row">
+                        <div class="form-row mb-2">
                             <div class="col-12">
+                                <label>Title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"  placeholder="Banner Title">
+                                @error('title')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('title')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                           
                         </div>
-                         <hr>
-                          <div class="form-row">
+                          <div class="form-row mb-2">
                             <div class="col-12">
+                                <label>Sub title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" name="sub_title"  placeholder="Banner Sub Title">
+                                @error('title')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('title')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                           
                         </div>
-                        <hr>
-                        <div class="form-row">
+                        <div class="form-row mb-2">
                             <div class="col-12">
+                                <label>Description</label>
                                 <textarea id="editor" class="form-control @error('description') is-invalid @enderror" name="text" rows="5" cols="5"   placeholder="Text"></textarea>
+                                @error('summary')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('summary')
+                           
+                        </div>
+
+                        <div class="form-row mb-2">
+                           <div class="col-12">
+                            <label>Image</label>
+                            <input type="file" name="photo" id="cat_image" class="form-control @error('photo') is-invalid @enderror" placeholder="">
+                            @error('photo')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
+                           </div>
                         </div>
-                        <hr>
+                       
 
-                        <div class="form-row">
-                            <input type="file" name="photo" id="cat_image" class="@error('photo') is-invalid @enderror" placeholder="">
+                      <div class="form-row mb-2">
+                        <div class="col-12">
+                            <img src="{{asset('assets/images/noimage.jpeg')}}" alt="" id="cat_image_preview" width="100px" height="100px" class="mt-2">
                         </div>
-                        @error('photo')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                      </div>
+                       
 
-                        <img src="{{asset('assets/images/noimage.jpeg')}}" alt="" id="cat_image_preview" width="100px" height="100px" class="mt-2">
-                        <hr>
-
-                        <div class="form-row">
+                        <div class="form-row mb-2">
+                           <div class="col-12">
+                            <label>Status<label>
                             <select class="form-control @error('status') is-invalid @enderror" id="" name="status">
-                                <option selected>Status</option>
+                             
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
 
                             </select>
+                            @error('status')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                           </div>
 
                         </div>
-                        @error('status')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                       
 
 
 
 
-                        <hr>
+                        <div class="form-row mb-2">
+                            
                         <div class="col-2">
                             <input type="submit" class="form-control btn btn-primary" name="btn" id="btn" value="Add Banner">
+                        </div>
                         </div>
                     </form>
                 </div>

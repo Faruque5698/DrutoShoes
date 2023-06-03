@@ -156,9 +156,11 @@ $(document).ready(function(){
                 })
 
                 $.ajax({
-                    type    : 'DELETE',
-                    url     : '/admin/category-delete/'+delete_id,
-                    data    : data,
+                    type    : 'POST',
+                    url     : "{{ route('admin.category.delete') }}",
+                    data    : {
+                        category_id : delete_id,
+                    },
                     success : function(response){
                         Swal.fire(
                             response.success,

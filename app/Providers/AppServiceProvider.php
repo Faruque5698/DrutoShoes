@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\EmailSetting;
 use Config;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,7 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $mailsetting = EmailSetting::first();
+        $mailsetting = EmailSetting::find(1);
+
         if($mailsetting){
             $data = [
                 'driver'            => $mailsetting->mail_transport,
@@ -36,10 +38,13 @@ class AppServiceProvider extends ServiceProvider
                 'password'          => $mailsetting->mail_password,
                 'from'              => [
                     'address'=>$mailsetting->mail_from,
-                    'name'   => 'LaravelStarter'
-                ]
+                    'name'   => 'Dutoshoes',
+                ],
             ];
+
             Config::set('mail',$data);
         }
+
+        
     }
 }

@@ -15,7 +15,7 @@ class CreateColorPerSizesTable extends Migration
     {
         Schema::create('color_per_sizes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->string('size_name');
             $table->json('color_code');
             $table->timestamps();

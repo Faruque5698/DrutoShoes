@@ -153,7 +153,7 @@ class AuthController extends Controller
             "device_token"  => "required",
         ]);
 
-        User::where("id", "=", $request->user->id)->update([
+        User::where("id", "=", $request->user_id)->update([
             "device_token" => $request->device_token,
         ]);
 

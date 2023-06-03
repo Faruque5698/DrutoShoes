@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('role')->default(0);
             $table->tinyInteger('isBan')->default(1);
             $table->tinyInteger('is_delete')->default(1);
+            $table->string('device_token')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->rememberToken();
             $table->timestamps();

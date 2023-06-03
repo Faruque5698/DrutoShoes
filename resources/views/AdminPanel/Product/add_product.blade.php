@@ -70,138 +70,116 @@ Add Product
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form id="productForm" action="{{ route('product.add') }}" enctype="multipart/form-data" method="post">
+                    <form id="myform" action="{{ route('product.add') }}" enctype="multipart/form-data" method="post">
                         @csrf
-                        <div class="form-row">
+                        <div class="form-row mb-2">
+                            <label for="" class="label-form pl-2">Product Name <span class="text-danger">*</span></label>
                             <div class="col-12">
                                 <input type="text" class="form-control @error('product_name') is-invalid @enderror" name="product_name" id="productName"  placeholder="Product Name">
                             </div>
                             <span id="productNameError" class="pl-2" style="color: red;"></span>
                         </div>
-                        <hr>
-                        <div class="form-row">
+
+                        <div class="form-row mb-2">
                             <div class="col-12">
+                                <label for="" class="label-form">Select brand Name <span class="text-danger">*</span></label>
                                 <select name="brand_id" id="brandId" class="form-control @error('brand_id') is-invalid @enderror">
-                                    <option selected>Select Brand</option>
+                                   
                                     @foreach($brands as $brand)
                                     <option value="{{ $brand->id }}">{{ $brand->brand_title }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            
+
                             <span id="brandError" class="pl-2" style="color: red;"></span>
                         </div>
-                        <hr>
-                        <div class="form-row">
+
+                        <div class="form-row mb-2">
+                            <label for="" class="label-form pl-2">Select category Name <span class="text-danger">*</span></label>
                             <div class="col-12">
                                 <select name="category_id" class="category-id form-control @error('category_id') is-invalid @enderror" id="catId">
-                                    <option selected>Select Category</option>
+                                   
                                     @foreach($categories as $category)
                                     <option  value="{{ $category->id }}">{{ $category->title }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            
+
                             <span id="categoryError" class="pl-2" style="color: red;"></span>
                         </div>
-                        <hr>
-                        <div class="form-row">
-                            <select class="form-control" name="subcategory_id" id="subCatId">
-                                <option value="">-----Select Sub Category------</option>
-                            </select>
-                            
-                            <span id="subCatError" class="pl-2" style="color: red;"></span>
+
+                        <div class="form-row mb-2">
+                            <label for="" class="label-form pl-2">Select subcategory Name <span class="text-danger">*</span></label>
+                            <div class="col-12">
+                                <select class="form-control " name="subcategory_id" id="subCatId">
+                                    <option value="">-----Select Sub Category------</option>
+                                </select>
+
+                                <span id="subCatError" class="pl-2" style="color: red;"></span>
+                            </div>
                         </div>
-                        
-                        <hr>
-                        <div class="form-row">
-                            
+
+                        <div class="form-row mb-2">
                             <div class="col-6">
+                                <label for="" class="label-form">Unit Price <span class="text-danger">*</span></label>
                                 <input type="text" name="price" id="priceVal" class="form-control @error('price') is-invalid @enderror" placeholder="Price">
                             </div>
 
 
                             <div class="col-6">
+                                <label for="" class="label-form">Discount Rate (1% - 100%)<span class="text-danger">*</span></label>
                                 <input type="text" name="discount_rate" class="form-control discount-price" id="discountPrice" placeholder="Discount Rate (1-100%)">
                                 <span id="disCountPriceError" class="pl-2" style="color: red;"></span>
                             </div>
-                        
+
                         </div>
-                        <hr>
-                        
-                        <div class="form-row">
-                            <div class="col-12">
-                                <select class="form-control " id="discount" name="discount_type">
-                                    <option selected>Select Discount Type</option>
-                                    <option value="%">Parcentage</option>
-                                </select>
-                                <span id="discountError" class="pl-2" style="color: red;"></span>
-                            </div>
-                            
-                        </div>
-                        <hr>
-                        <div class="form-row">
+
+                        <div class="form-row mb-2">
                             <div class="col-12" id="disCount">
                                 <input  type="number" name="discount_price" id="disResult"  class="form-control @error('price') is-invalid @enderror" placeholder="Total">
                             </div>
                             <span id="priDisError" class="pl-2" style="color: red;"></span>
                         </div>
+
                         <hr>
-                        <div class="form-row">
-                            <div class="col-3">
-                                <input class="form-check-input ml-1" id="check" type="checkbox" id="check1" value="something">
-                                <label class="ml-4">Add Variant</label>
-                            </div>
-                            <div class="col-9">
-                                <input  type="number" name="quantity" id="updateQuantity"  class="form-control" placeholder="Quantity">
-                                <span id="QuantityErrr" class="pl-2" style="color: red;"></span>
-                            </div>
-                        </div>
-                      
-                        <div class="form-row variant">
-                            <div class="col-4">
+                        <div class="form-row mb-2">
+                            <div class="col-5">
+                                <label for="" class="label-form"> Size (Minimum one size select) <span class="text-danger">*</span></label>
                                 <select  id="sizeId" class="select-size form-control mb-1" >
-                                    <option value="0">Select Size</option>
+
                                     @foreach($sizes as $size)
                                     <option value="{{ $size->id }}">{{ $size->size_name }}</option>
                                     @endforeach
                                 </select>
                                 <span id="sizeError" class="pl-2" style="color: red;"></span>
                             </div>
-                            <div class="col-4">
-                                <select  id="colorId"  class="select-color form-control  mb-1" >
-                                    <option value="0">Select Color</option>
-                                    @foreach($colors as $color)
-                                    <option class="colorText" value="{{ $color->color_code }}">{{ $color->color_name }}</option>
-                                    @endforeach
-                                </select>
-                                <span id="colorError" class="pl-2" style="color: red;"></span>
-                                
-                            </div>
-                            <div class="col-2">
+
+                            <div class="col-5">
+                                <label for="" class="label-form">Quantity <span class="text-danger">*</span></label>
                                 <input type="number" id="sizeColorQty" class="form-control"  placeholder="Quantity">
                             </div>
                             <div class="col-2 text-center">
-                                <button id="addRow" class="ml-2 btn btn-primary w-100">Add</button>
+                                <button type="button" id="addRow" style="margin-top: 32px;" class="btn btn-primary w-100">Add</button>
                             </div>
                         </div>
-                        
-                     
+
+
                         <div id="myTable">
-                            
+
                         </div>
 
-                        <hr>
-                        <div class="form-row">
+
+                        <div class="form-row mb-2">
                             <div class="col-12">
+                                <label for="" class="label-form">Description<span class="text-danger">*</span></label>
                                 <textarea id="discription" class="form-control @error('discription') is-invalid @enderror" name="discription" placeholder="Product description here...."></textarea>
                             </div>
                             <span id="discriptionError" class="pl-2" style="color: red;"></span>
                         </div>
-                        
-                        <hr>
-                        <div class="form-row">
+
+                        <div class="form-row mb-2">
                             <div class="col-3">
+
                                 <input type="file" id="mainImg" class="@error('image') is-invalid @enderror" name="image" onchange="checkFiles()" />
                                 <label for="mainImg" class="lable-custom"><i class="fas fa-upload mr-2"></i>Upload Image (Compulsery)</label>
                                 <div class="text-center prev">
@@ -214,7 +192,7 @@ Add Product
                                 <div class="text-center prev">
                                     <img src="{{ asset('assets/images/noimage.jpeg') }}" id="option1Preview"/ width="100px" height="100px">
                                 </div>
-                                
+
                             </div>
                             <div class="col-3">
                                 <input type="file" id="optionImg2" class="@error('image') is-invalid @enderror" name="image2" onchange="checkImage();" />
@@ -232,19 +210,23 @@ Add Product
                             </div>
                             <span id="imgError" class="pl-2" style="color: red;"></span>
                         </div>
-                        
+
                         <hr>
-                        <div class="form-row">
-                            <select id="status" class="form-control @error('status') is-invalid @enderror" id="" name="status">
-                                <option value="0">Status</option>
+                        <div class="form-row mb-2">
+                           <div class="col-12">
+                            <label for="" class="label-form">Status</label>
+                            <select class="form-control @error('status') is-invalid @enderror" id="" name="status">
+                                
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
                             </select>
+                           </div>
                         </div>
-                        <span id="statusError" class="pl-2" style="color: red;"></span>
-                        <hr>
-                        <div class="col-2">
-                            <input type="submit" class="form-control btn btn-primary"  id="btn" value="Add Product">
+
+                        <div class="form-row">
+                            <div class="col-2">
+                                <input type="submit" class="form-control btn btn-primary"  id="btn" value="Add Product">
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -254,7 +236,7 @@ Add Product
     </div>
     @endsection
     @section('js')
-    
+
     <script type="text/javascript">
 
         $(document).ready(function(){
@@ -273,8 +255,8 @@ Add Product
             data   : {cat_id:catId},
             success: function(data){
                     $('#subCatId').html(data);
-                   
-                } 
+
+                }
             })
         });
 
@@ -304,25 +286,65 @@ Add Product
                     color_text:colorText,
                     size_color_qty:sizeColorQty,
                 },
-                success: function(data){ 
+                success: function(data){
                          $('#myTable').html(data);
                           updateQunatity();
+                          $('#sizeId option:first').prop('selected',true);
+                         $('#colorId option:first').prop('selected',true);
+                         $('#sizeColorQty').val(' ');
+
                 }
             });
-        
+
         });
 
-        $("#check").click(function(){
-            if(this.checked){
-                $('#updateQuantity').hide();
-                $('.variant').show();
-            }else{
-               $('#updateQuantity').show();
-               $('.variant').hide();
-            }
+
+
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+            });
+            $.ajax({
+                type   : 'GET',
+                url: "{{ route('product.colorPerSize') }}",
+                success: function(data){
+                    $('#myTable').html(data);
+                }
+            });
         });
 
-        
+
+
+
+
+
+
+        $(document).on("click","#remove", function(){
+          var temData =  $(this).val();
+          // alert(temData);
+                var data = {
+                    "_token" : $('input[name="csrf-token"]').val(),
+                    "id"     : temData,
+                }
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type    : 'GET',
+                url     : 'color-per-size/'+temData,
+                data    : temData,
+                success: function(data){
+                    $('#myTable').html(data);
+                }
+            });
+        });
+
+
+
 
         function updateQunatity(){
              $.ajaxSetup({
@@ -334,7 +356,7 @@ Add Product
 
                 type   : 'GET',
                 url: "{{ route('update.quantity') }}",
-                success: function(data){ 
+                success: function(data){
                         $("#updateQuantity").val(data);
 
                         // console.log(data);
@@ -345,83 +367,54 @@ Add Product
 
 
 
-        $('#discount').change(function(){
-            var discountType = $(this).val();
+        // $('#discount').change(function(){
+        //     var discountType = $(this).val();
+        //     var priceVal = $('#priceVal').val();
+        //     var discountPrice = $('#discountPrice').val();
+
+        //     if(discountType == "%"){
+        //         var result = ((priceVal * (100 - discountPrice)) / 100);
+        //         $('#disResult').val(result);
+
+        //     }
+        // });
+
+
+        $('#discountPrice').keyup(function(){
+
             var priceVal = $('#priceVal').val();
             var discountPrice = $('#discountPrice').val();
-        
-            if(discountType == "%"){
-                var result = ((priceVal * (100 - discountPrice)) / 100);
-                $('#disResult').val(result);
-                
-            }
+            var result = ((priceVal * (100 - discountPrice)) / 100);
+            $('#disResult').val(result);
+
+
         });
 
-    
 
-
-
-
-        function checkCategory() {
-        var categoryId = $('#catId').val();
-            if (categoryId == '0') {
-                $('#categoryError').text('Please select your Category');
-                return false;
-            } else {
-                $('#categoryError').text(' ');
-                return true;
-            }
-        };
-
-
-
-        function checkSubCatId() {
-            var subCatId = $('#subCatId').val();
-            if (subCatId == '0') {
-                $('#subCatError').text('Please select your Subcategory');
-                return false;
-            } else {
-                $('#subCatError').text(' ');
-                return true;
-            }
-        };
-  
-
-
-        function checkDiscontType() {
+        $('#priceVal').keyup(function(){
+            var priceVal = $('#priceVal').val();
             var discountPrice = $('#discountPrice').val();
-            if (discountPrice == ' ') {
-                $('#discountError').text('Please select your Discount');
-                return false;
-            } else {
-                $('#discountError').text(' ');
-                return true;
-            }
-        };
+            var result = ((priceVal * (100 - discountPrice)) / 100);
+            $('#disResult').val(result);
+        });
 
 
-
-        function checkStatus() {
-            var status = $('#status').val();
-            if (status == '0') {
-                $('#statusError').text('Please select status');
-                return false;
-            } else {
-                $('#statusError').text(' ');
-                return true;
-            }
-        };
-      
-
-       // form validation
-    
-        $('#productForm').submit(function() {
-            if (checkCategory() == true && checkSubCatId() == true &&  checkStatus() == true) {
-            return true;
-            } else {
-            return false;
+        $("#myform").validate({
+            rules: {
+                discount_rate: {
+                    required: true,
+                    minlength: 1,
+                    mixlength: 100,
+                }
+            },
+            messages: {
+                discount_rate: {
+                    required: "Minimum 1 to mixmum rate 100%",
+                    minlength: jQuery.validator.format("At least {0} characters required!")
+                }
             }
         });
+
     });
 
 
@@ -480,7 +473,7 @@ Add Product
             }
         }
 
-    
+
     </script>
-    
+
     @endsection

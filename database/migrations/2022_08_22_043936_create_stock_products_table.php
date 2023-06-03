@@ -16,7 +16,7 @@ class CreateStockProductsTable extends Migration
         Schema::create('stock_products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')
-                    ->constrained()
+                    ->constrained('products')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
             $table->integer('total_qty');

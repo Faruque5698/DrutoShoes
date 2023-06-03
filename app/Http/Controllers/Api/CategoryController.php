@@ -17,7 +17,7 @@ class CategoryController extends Controller
         return ApiResponse::success($category);
     }
     public function subcatProduct($id){
-        $products = Product::with('productToCategory','productToSubcategory','productToBrand')->where('subcategory_id','=',$id)->where('status','=','active')->get();
+        $products = Product::with('productToCategory','productToSubcategory','productToBrand','size_color_qty_product','rating')->where('subcategory_id','=',$id)->where('status','=','active')->get();
         return ApiResponse::success($products);
     }
     public function brand(){
@@ -27,7 +27,7 @@ class CategoryController extends Controller
     }
 
     public function brandProduct($id){
-        $product = Product::with('productToCategory','productToSubcategory','productToBrand')->where('brand_id','=',$id)->where('status','=','active')->get();
+        $product = Product::with('productToCategory','productToSubcategory','productToBrand','size_color_qty_product','rating')->where('brand_id','=',$id)->where('status','=','active')->get();
         return ApiResponse::success($product);
 
     }

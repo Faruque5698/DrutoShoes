@@ -83,7 +83,7 @@
                                        <div class="col-sm-6">
                                           <div class="row">
                                             <div class="col-sm-12">
-                                              <p class="mb-2">Wesite Name</p>
+                                              <p class="mb-2">Wesite Name <span class="text-danger">*</span></p>
                                             </div>
                                             <div class="col-sm-12">
                                                <input type="text" name="website_name" value="{{ isset($genarel->website_name) ?  $genarel->website_name : ' '}}" class="text-muted form-control mb-0" placeholder="Drutoshop">
@@ -92,8 +92,8 @@
                                        </div>
                                        <div class="col-sm-6">
                                          <div class="row">
-                                            <div class="col-sm-12">
-                                              <p class="mb-2">Company Email</p>
+                                            <div class="col-sm-12"> 
+                                              <p class="mb-2">Company Email <span class="text-danger">*</span></p>
                                             </div>
                                             <div class="col-sm-12">
                                                <input type="email" name="company_email" value="{{ isset($genarel->company_email) ?  $genarel->company_email : ' '}}" class="text-muted form-control mb-0" placeholder="info@drutoshop.com">
@@ -106,7 +106,7 @@
                                        <div class="col-sm-6">
                                           <div class="row">
                                             <div class="col-sm-12">
-                                              <p class="mb-2">Contact Number</p>
+                                              <p class="mb-2">Contact Number <span class="text-danger">*</span></p>
                                             </div>
                                             <div class="col-sm-12">
                                                <input type="text" name="contact_no" value="{{ isset($genarel->contact_no) ?  $genarel->contact_no : ' '}}" class="text-muted form-control mb-0" placeholder="+11 0548544571">
@@ -116,7 +116,7 @@
                                        <div class="col-sm-6">
                                          <div class="row">
                                             <div class="col-sm-12">
-                                              <p class="mb-2">Fax Number</p>
+                                              <p class="mb-2">Fax Number <span class="text-danger">*</span></p>
                                             </div>
                                             <div class="col-sm-12">
                                                <input type="text" name="fax_no" value="{{ isset($genarel->fax_no) ?  $genarel->fax_no : ' '}}" class="text-muted form-control mb-0" placeholder="12345678">
@@ -129,7 +129,7 @@
                                        <div class="col-sm-6">
                                           <div class="row">
                                             <div class="col-sm-12">
-                                              <p class="mb-2">Footer Text</p>
+                                              <p class="mb-2">Footer Text <span class="text-danger">*</span></p>
                                             </div>
                                             <div class="col-sm-12">
                                                <input type="text" name="footer_text" value="{{ isset($genarel->footer_text) ?  $genarel->footer_text : ' '}}" class="text-muted form-control mb-0" placeholder="Drutoshop © Drutoshop 2022">
@@ -139,14 +139,28 @@
                                        <div class="col-sm-6">
                                          <div class="row">
                                             <div class="col-sm-12">
-                                              <p class="mb-2">Address</p>
+                                              <p class="mb-2">Address <span class="text-danger">*</span></p>
                                             </div>
                                             <div class="col-sm-12">
                                                <input type="text" name="address" value="{{ isset($genarel->address) ?  $genarel->address : ' '}}" class="text-muted form-control mb-0" placeholder="Dhaka1200">
                                             </div>
                                           </div>
                                        </div>
-                                    </div>
+
+                                       <div class="col-sm-6">
+                                          <div class="row">
+                                             <div class="col-sm-12">
+                                               <p class="mb-2">Currency <span class="text-danger">*</span></p>
+                                             </div>
+                                             <div class="col-sm-12">
+                                               <select name="currency" class="form-control">
+                                                   <option {{ $genarel->currency === "Tk." ? "selected" : " " }} value="Tk.">BDT (Bangladesh)</option>
+                                                   <option {{ $genarel->currency === "$." ? "selected" : " " }} value="$.">USD (US)</option>
+                                               </select>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>   
 
 
                                      <div class="row mb-4">
@@ -171,7 +185,7 @@
                                        <div class="col-sm-3 offset-sm-2">
                                           <div class="row">
                                             <div class="col-sm-12">
-                                               <label for="favIcon" class="lable-custom">Fav Icon</label>
+                                               <label for="favIcon" class="lable-custom">Fav Icon <span class="text-danger">*</span></label>
                                             </div>
                                             <div class="col-sm-12">
                                                <input type="file" id="favIcon" name="fav_icon" class="text-muted form-control mb-0">
@@ -181,7 +195,7 @@
                                        <div class="col-sm-3 offset-sm-2">
                                          <div class="row">
                                             <div class="col-sm-12">
-                                              <label for="logo" class="lable-custom">Logo</label>
+                                              <label for="logo" class="lable-custom">Logo <span class="text-danger">*</span></label>
                                             </div>
                                             <div class="col-sm-12">
                                                <input type="file" id="logo" name="logo" class="text-muted form-control mb-0">
