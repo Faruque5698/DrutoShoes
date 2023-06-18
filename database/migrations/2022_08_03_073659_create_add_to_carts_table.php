@@ -15,13 +15,12 @@ class CreateAddToCartsTable extends Migration
     {
         Schema::create('add_to_carts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->integer('product_quantity')->nullable();
-            $table->double('product_price',10,2)->nullable();
-            $table->double('product_total_price',10,2)->nullable();
-            $table->string('color_code',255)->nullable();
-            $table->string('size',6)->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->integer('product_quantity');
+            $table->double('product_price',10,2);
+            $table->double('product_total_price',10,2);
+            $table->string('size');
             $table->timestamps();
         });
     }

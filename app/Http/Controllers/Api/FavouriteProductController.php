@@ -29,7 +29,7 @@ class FavouriteProductController extends Controller
     }
 
     public function favproductlist(){
-        $products = FavouriteProduct::with('products.productToBrand','products.productToCategory','products.productToSubcategory', 'products.color_per_size','products.rating')->where('user_id','=',auth()->user()->id)->get();
+        $products = FavouriteProduct::with('products.productToBrand','products.productToCategory','products.productToSubcategory', 'products.size_color_qty_product','products.rating')->where('user_id','=',auth()->user()->id)->get();
 
         if ($products -> isEmpty()){
             $data = [];

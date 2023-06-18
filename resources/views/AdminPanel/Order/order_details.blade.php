@@ -106,7 +106,7 @@
                                     @foreach ($order_details->order_to_product as $list)
                                     <div class="col-12 col-sm-8 col-md-6 col-lg-4">
                                         <div class="card">
-                                          <img class="card-img" src="{{ asset($list->products->image) }}" width="100%" height="250px" alt="Vans">
+                                          <img class="card-img" src="{{ asset($list->products->image) ?? '' }}" width="100%" height="250px" alt="Vans">
                                           <div class="card-img-overlay d-flex justify-content-end">
 
                                           </div>

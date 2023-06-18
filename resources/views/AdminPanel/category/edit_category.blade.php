@@ -35,59 +35,68 @@
                 <div class="card-body">
                     <form action="{{route('category_update')}}" enctype="multipart/form-data" method="post">
                         @csrf
-                        <div class="form-row">
+                        <div class="form-row mb-2">
                             <div class="col-12">
+                                <label>Category Title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{$category -> title ?? ''}}" placeholder="Category Title">
                                 <input type="hidden" class="form-control @error('title') is-invalid @enderror" name="id" value="{{$category -> id ?? ''}}" placeholder="Category Title">
+                                @error('title')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('title')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                           
                         </div>
-                        <hr>
-                        <div class="form-row">
+                        <div class="form-row mb-2">
                             <div class="col-12">
+                                <label>Description</label>
                                 <textarea id="editor" class="form-control @error('description') is-invalid @enderror" name="summary" rows="5" cols="5"   placeholder="Category Summary">{{$category -> summary}}</textarea>
+                                @error('summary')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('summary')
+                           
+                        </div>
+                        
+
+                        <div class="form-row mb-2">
+                           <div class="col-12">
+                            <label>Image</label>
+                            <input type="file" name="photo" id="imgInp" class="@error('photo') is-invalid @enderror" placeholder="">
+                            @error('photo')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
+                            </div>
                         </div>
-                        <hr>
+                        
+                       <div class="form-row mb-2">
+                            <div class="col-12">
+                                <img src="{{asset($category -> photo)}}" alt="" id="blah" width="100px" height="100px">
+                            </div>
+                       </div>
+                        
 
-                        <div class="form-row">
-                            <input type="file" name="photo" id="imgInp" class="@error('photo') is-invalid @enderror" placeholder="">
+                        <div class="form-row mb-2">
+                            <div class="col-12">
+                                <select class="form-control @error('status') is-invalid @enderror" id="" name="status">
+                                
+                                    <option value="active" {{$category -> status == 'active' ? 'Selected' : ''}}>Active</option>
+                                    <option value="inactive" {{$category -> status == 'inactive' ? 'Selected' : ''}}>Inactive</option>
+    
+                                </select>
+                                @error('status')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                         </div>
-                        @error('photo')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <img src="{{asset($category -> photo)}}" alt="" id="blah" width="100px" height="100px">
-                        <hr>
-
-                        <div class="form-row">
-                            <select class="form-control @error('status') is-invalid @enderror" id="" name="status">
-                                <option selected>Status</option>
-                                <option value="active" {{$category -> status == 'active' ? 'Selected' : ''}}>Active</option>
-                                <option value="inactive" {{$category -> status == 'inactive' ? 'Selected' : ''}}>Inactive</option>
-
-                            </select>
-
-                        </div>
-                        @error('status')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        
 
 
-
-
-                        {{--                        <hr>--}}
-                        {{--                        <div class=" ml-5">--}}
-                        {{--                            <img style="width: 50%;border: 1px solid; border-radius: 10px;" id="viewer" src="{{asset('admin')}}/image/image.jpg" alt="banner image">--}}
-                        {{--                        </div>--}}
-                        <hr>
+                       <div class="form-row mb-2">
                         <div class="col-2">
                             <input type="submit" class="form-control btn btn-primary" name="btn" id="btn" value="Update Category">
                         </div>
+                       </div>
                     </form>
                 </div>
                 <!-- /.card-body -->

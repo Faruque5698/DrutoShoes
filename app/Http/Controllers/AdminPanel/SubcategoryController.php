@@ -84,7 +84,7 @@ class SubcategoryController extends Controller
             $subcategory->photo = $imageUrl;
             $subcategory->save();
         }else{
-            $subcategory->brand_title = $request->title;
+            $subcategory->title = $request->title;
             $subcategory->category_id = $request->category_id;
             $subcategory->summary = $request->summary;
             $subcategory->status = $request->status;

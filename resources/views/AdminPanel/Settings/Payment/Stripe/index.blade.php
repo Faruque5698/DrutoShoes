@@ -75,18 +75,18 @@
                             <div class="row mb-4">
                                 <div class="col-sm-2">
                                   <div class="carv-image">
-                                    <img src="{{ asset($stripe_page->images) }}" width="120px" height="120px">
+                                    <img src="{{ asset($stripe_page->images) ?? '' }}" width="120px" height="120px">
                                   </div>
                                   <div class="carv-icon">
                                     <label for="upImage"><i class="fas fa-upload"></i></label>
                                     <input type="file"  id="upImage" name="image">
-                                    <input  type="hidden" name="code" value="{{ $stripe_page->code }}">
+                                    <input  type="hidden" name="code" value="{{ $stripe_page->code ?? ' ' }}">
                                   </div>
                                
                                 </div>
                                 <div class="col-sm-10">
-                                  <h3>{{ $stripe_page->name }}</h3>
-                                  <p>{{ $stripe_page->description }}</p>
+                                  <h3>{{ $stripe_page->name ?? ' ' }}</h3>
+                                  <p>{{ $stripe_page->description ?? ' ' }}</p>
                                 </div>
                               </div>
                               <div class="row mb-2">
@@ -102,7 +102,7 @@
                                           <p class="mb-2">STRIPE KEY</p>
                                        </div>
                                       <div class="col-sm-12">
-                                         <input type="text" name="client_id" value="{{ $stripe_page->client_id }}" class="text-muted form-control mb-0">
+                                         <input type="text" name="client_id" value="{{ $stripe_page->client_id ?? ' ' }}" class="text-muted form-control mb-0">
                                       </div>
                                       </div>
                                    </div>
@@ -112,7 +112,7 @@
                                           <p class="mb-2">STRIPE SECRATE KEY</p>
                                        </div>
                                       <div class="col-sm-12">
-                                         <input type="text" name="screet_key" value="{{ $stripe_page->screet_key }}" class="text-muted form-control mb-0">
+                                         <input type="text" name="screet_key" value="{{ $stripe_page->screet_key ?? ' ' }}" class="text-muted form-control mb-0">
                                       </div>
                                       </div>
                                    </div>

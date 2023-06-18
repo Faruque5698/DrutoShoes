@@ -38,7 +38,6 @@ class OrderController extends Controller
         $order->save();
 
 
-
         $carts = AddToCart::where('user_id','=',auth()->user()->id)->get();
 
         foreach ($carts as $cart){
@@ -48,7 +47,6 @@ class OrderController extends Controller
             $order_product->quantity = $cart->product_quantity;
             $order_product->total_price = $cart->product_total_price;
             $order_product->size = $cart->size;
-            $order_product->color_code = $cart->color_code;
             $order_product->save() ;
 
 //            All product Stock Manage
@@ -57,7 +55,7 @@ class OrderController extends Controller
             $product->sale_qty = $product->sale_qty + $order_product->quantity;
             $product->save();
 
-            $pro_size_color = ColorSizeQty::where('product_id','=',$cart->product_id)->where('color_code','=', $cart->color_code)->where('size_name','=', $cart->size)->first();
+            $pro_size_color = ColorSizeQty::where('product_id','=',$cart->product_id)->where('size_name','=', $cart->size)->first();
 
 
 

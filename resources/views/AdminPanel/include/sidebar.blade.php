@@ -60,26 +60,26 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.order') }}" class="nav-link pl-3 {{($route == 'admin.order')?'active': ''}}">
                                 <i class="nav-icon fas fa-caret-right"></i>
-                                <p class="text-{{ (request()->is('admin/order/list')) ? 'warning' : '' }}">Order List</p>
+                                <p style="color:{{ (request()->is('admin/order/list')) ? '#FF6666' : '' }}">Order List</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('panding.order-list') }}" class="nav-link pl-3 {{($route == 'panding.order-list')?'active': ''}}">
                                 <i class="nav-icon fas fa-caret-right"></i>
-                                <p class="text-{{ (request()->is('admin/order/pending-order-list')) ? 'warning' : '' }}">Pending Order List</p>
+                                <p style="color:{{ (request()->is('admin/order/pending-order-list')) ? '#FF6666' : '' }}">Pending Order List</p>
                             </a>
                             <a href="{{ route('confirm.order-list') }}" class="nav-link pl-3 {{($route == 'confirm.order-list')?'active': ''}}">
                                 <i class="nav-icon fas fa-caret-right"></i>
-                                <p class="text-{{ (request()->is('admin/order/confirm-order-list')) ? 'warning' : '' }}">Confiram Order List</p>
+                                <p class="color:{{ (request()->is('admin/order/confirm-order-list')) ? '#FF6666' : '' }}">Confiram Order List</p>
                             </a>
 
                             <a href="{{ route('success.order-list') }}" class="nav-link pl-3 {{($route == 'success.order-list')?'active': ''}}">
                                 <i class="nav-icon fas fa-caret-right"></i>
-                                <p class="text-{{ (request()->is('admin/order/success-order-list')) ? 'warning' : '' }}">Success Order List</p>
+                                <p class="color:{{ (request()->is('admin/order/success-order-list')) ? '#FF6666' : '' }}">Success Order List</p>
                             </a>
                             <a href="{{ route('cancel.order-list') }}" class="nav-link pl-3 {{($route == 'cancel.order-list')?'active': ''}}">
                                 <i class="nav-icon fas fa-caret-right"></i>
-                                <p class="text-{{ (request()->is('admin/order/cancel-order-list')) ? 'warning' : '' }}">Cancel Order List</p>
+                                <p style="color:{{ (request()->is('admin/order/cancel-order-list')) ? '#FF6666' : '' }}">Cancel Order List</p>
                             </a>
                         </li>
                     </ul>
@@ -89,6 +89,12 @@
                     {{($route == 'admin.category')?'menu-open': ''}}
                     {{($route == 'admin.subcategory')?'menu-open': ''}}
                     {{($route == 'admin.brand')?'menu-open': ''}}
+                    {{($route == 'add_category')?'menu-open': ''}}
+                    {{($route == 'subcategory.edit')?'menu-open': ''}}
+                    {{($route == 'add.brand')?'menu-open': ''}}
+                    {{($route == 'add.size')?'menu-open': ''}}
+                    {{($route == 'size.edit')?'menu-open': ''}}
+                    {{($route == 'brnad.edit')?'menu-open': ''}}
                     {{($route == 'admin.color')?'menu-open': ''}}
                     {{($route == 'admin.size')?'menu-open': ''}}
                     {{($route == 'admin.product')?'menu-open': ''}}
@@ -101,6 +107,7 @@
                     <a href="#" class="nav-link
                       {{($route == 'admin.category')?'active': ''}}
                       {{($route == 'admin.subcategory')?'active': ''}}
+                      {{($route == 'add_category') ? 'active' : ''}}
                       {{($route == 'admin.brand')?'active': ''}}
                       {{($route == 'admin.color')?'active': ''}}
                       {{($route == 'admin.size')?'active': ''}}
@@ -117,46 +124,60 @@
                             <i class="fas fa-angle-left right"></i>
 
                     </a>
-                    <ul class="nav nav-treeview ">
+                    <ul class="nav nav-treeview 
+                    
+                        {{($route == 'admin.category')?'active': ''}}
+                        {{($route == 'admin.subcategory')?'active': ''}}
+                        {{($route == 'add_category') ? 'active' : ''}}
+                        {{($route == 'admin.brand')?'active': ''}}
+                        {{($route == 'admin.color')?'active': ''}}
+                        {{($route == 'admin.size')?'active': ''}}
+                        {{($route == 'admin.product')?'active': ''}}
+                        {{($route == 'product.add')?'active': ''}}
+                        {{($route == 'product.single')?'active': ''}}
+                        {{($route == 'product.flash.deal.all')?'active': ''}}
+                        {{($route == 'product.flash.deal')?'active': ''}}
+                        {{($route == 'product.edit')?'active': ''}}
+                    ">
 
                         <li class="nav-item">
                             <a href="{{route('admin.category')}}" class="nav-link pl-3 {{($route == 'admin.category')?'active': ''}}">
                                 <i class="fas fa-caret-right nav-icon"></i>
-                                <p class="text-{{ (request()->is('admin/category*')) ? 'warning' : '' }}">category</p>
+                                <p style="color:{{ (request()->is('admin/category*')) ? '#FF6666' : '' }}">category</p>
                             </a>
                         </li>
-                        <li class="nav-itemnav-item">
+                        <li class="nav-item">
                             <a href="{{route('admin.subcategory')}}" class="nav-link pl-3 {{($route == 'admin.subcategory')?'active': ''}}">
                                 <i class="fas fa-caret-right nav-icon"></i>
-                                <p class="text-{{ (request()->is('admin/subcategory*')) ? 'warning' : '' }}">Sub category</p>
+                                <p style="color:{{ (request()->is('admin/subcategory*')) ? '#FF6666' : '' }}">Sub category</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="{{ route('admin.brand') }}" class="nav-link pl-3  {{($route == 'admin.brand')?'active': ''}}">
                                 <i class="fas fa-caret-right nav-icon"></i>
-                                <p class="text-{{ (request()->is('admin/brand*')) ? 'warning' : '' }}">Brand</p>
+                                <p style="color:{{ (request()->is('admin/brand*')) ? '#FF6666' : '' }}">Brand</p>
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('admin.color') }}" class="nav-link pl-3 {{($route == 'admin.color')?'active': ''}}">
                                 <i class="fas fa-caret-right nav-icon"></i>
-                                <p class="text-{{ (request()->is('admin/color*')) ? 'warning' : '' }}">Color</p>
+                                <p style="color:{{ (request()->is('admin/color*')) ? '#FF6666' : '' }}">Color</p>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item">
                             <a href="{{ route('admin.size') }}" class="nav-link pl-3 {{($route == 'admin.size')?'active': ''}}">
                                 <i class="fas fa-caret-right nav-icon"></i>
-                                <p class="text-{{ (request()->is('admin/size*')) ? 'warning' : '' }}">Size</p>
+                                <p style="color:{{ (request()->is('admin/size*')) ? '#FF6666' : '' }}">Size</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="{{ route('admin.product') }}" class="nav-link pl-3 {{($route == 'admin.product')?'active': ''}}">
                                 <i class="fas fa-caret-right nav-icon"></i>
-                                <p class="text-{{ (request()->is('admin/product*')) ? 'warning' : '' }}">Product list</p>
+                                <p style="color:{{ (request()->is('admin/product*')) ? '#FF6666' : '' }}">Product list</p>
                             </a>
                         </li>
 
@@ -182,7 +203,7 @@
                         <li class="nav-item">
                             <a href="{{route('banner.index')}}" class="nav-link pl-3 {{($route == 'banner.index')?'active': ''}}">
                                 <i class="fas fa-caret-right nav-icon"></i>
-                                <p>Slider</p>
+                                <p style="color:{{ (request()->is('admin/banner*')) ? '#FF6666' : '' }}">Slider</p>
                             </a>
                         </li>
 
@@ -214,7 +235,7 @@
                         <li class="nav-item">
                             <a href="{{ route('stock.details.product') }}" class="nav-link pl-3 {{($route == 'stock.details.product')?'active': ''}}">
                                 <i class="nav-icon fas fa-caret-right nav-icon"></i>
-                                <p style="color:{{ (request()->is('admin/stock/details/product')) ? '#FF6666' : '' }}">Size & Color Stock</p>
+                                <p style="color:{{ (request()->is('admin/stock/details/product')) ? '#FF6666' : '' }}">Size & Quantity</p>
                             </a>
                         </li>
                     </ul>
@@ -227,7 +248,7 @@
                 <a href="#" class="nav-link
                 {{($route == 'admin.notification.index')?'active': ''}}
                 ">
-                    <i style="color:{{ (request()->is('admin/notification*')) ? '#11183C' : '' }}" class="fas fa-bell nav-icon" style="color:{{ (request()->is('admin/notification*')) ? '#11183C' : '' }}"></i>
+                    <i style="color:{{ (request()->is('admin/notification*')) ? '#000000' : '' }}" class="fas fa-bell nav-icon" style="color:{{ (request()->is('admin/notification*')) ? '#000000' : '' }}"></i>
                     <p>
                     Send Notification
                     <i class="fas fa-angle-left right"></i>
@@ -237,15 +258,10 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.notification.index') }}" class="nav-link pl-3 {{($route == 'admin.notification.index')?'active': ''}}">
                                 <i class="fas fa-caret-right nav-icon"></i>
-                                <p class="text-{{ (request()->is('admin/notification/index')) ? 'warning' : '' }}">All user Notification</p>
+                                <p style="color:{{ (request()->is('admin/notification*')) ? '#FF6666' : '' }}">All user Notification</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                        <a href="" class="nav-link pl-3">
-                            <i class="fas fa-caret-right nav-icon"></i>
-                            <p>Single Notification</p>
-                        </a>
-                        </li>
+
 
                     </ul>
                 </li>

@@ -15,8 +15,8 @@ class CreateTrxesTable extends Migration
     {
         Schema::create('trxes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('order_id',255)->nullable();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('order_id')->constrained('orders')->cascadeOnDelete();
             $table->double('amount',10,2)->nullable();
             $table->string('trx_type',2)->nullable();
             $table->string('remark',255)->nullable();

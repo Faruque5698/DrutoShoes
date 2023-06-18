@@ -100,11 +100,16 @@ class BrandController extends Controller
         return back()->with('message',' Brands Active');
     }
 
-    public function destroy($id){
-        $brands = Brand::find($id);
-        // unlink($brands->photo);
-        $brands->delete();
+    public function destroy(Request $request){
+        $brand = Brand::find($request->brand_id);
 
-        return response()->json(['success'=>'Brand Delete Successfully!!']);
+        if($brand->photo){
+            unlink($brand->photo);
+            $brand->delete();
+            return response()->json(['success'=>'Brand Delete Successfully!!']);
+        }else{
+            $brand->delete();
+            return response()->json(['success'=>'Brand Delete Successfully!!']);
+        }
     }
 }

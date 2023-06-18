@@ -61,13 +61,20 @@
                                        <td>{{$single_product->productToSubcategory->title}}</td>
                                    </tr>
                                    <tr>
-                                       <th>Color, Sizw & Qty</th>
+                                       <th>Size and Quantity</th>
                                         <td>
 
                                             @foreach($single_product->size_color_qty_product as $details)
 
                                             <div class="d-flex">
-                                                 <div>{{ $details->size_name }}</div>-<div class="d-flex" style="width:50px; height: 20px; background-color: {{ $details->color_name }};"></div>-<div>{{ $details->size_color_qty }}</div><br>
+                                                 <div>
+                                                    {{ $details->size_name }}
+                                                </div>
+                                                -
+                                                <div>
+
+                                                    {{ $details->size_color_qty }}
+                                                </div><br>
                                             </div>
 
                                           @endforeach

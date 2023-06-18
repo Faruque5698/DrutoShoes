@@ -15,9 +15,9 @@ class CreateCustomerNotificationsTable extends Migration
     {
         Schema::create('customer_notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 255);
-            $table->text('body');
-            $table->string('image');
+            $table->string('title', 255)->nullable();
+            $table->text('body')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

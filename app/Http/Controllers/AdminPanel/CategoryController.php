@@ -23,7 +23,7 @@ class CategoryController extends Controller
 
         $category_image = $request->file('photo');
         if ($category_image){
-            $imageName = $category_image->getClientOriginalName();
+            $imageName = time().$category_image->getClientOriginalName();
             $directory = 'assets/images/category/';
             $imageUrl = $directory.$imageName;
             $category_image -> move($directory,$imageName);
@@ -39,7 +39,6 @@ class CategoryController extends Controller
             $category->title = $request->title;
             $category->summary = $request->summary;
             $category->status = $request->status;
-//            $category->title = $imageUrl ;
             $category->save();
         }
 
@@ -58,13 +57,28 @@ class CategoryController extends Controller
         $category->save();
         return back()->with('message',' Category Active');
     }
-    public function destroy($id){
-        $category = Category::find($id);
-        unlink($category->photo);
-        $category->delete();
 
-         return response()->json(['success'=>'Category Delete Successfully!!']);
+
+    // created by md Rabbi Hasan
+    // copy right md Rabbi Hasan 2023
+
+    public function destroy(Request $request){
+        $category = Category::find($request->category_id);
+
+        if($category->photo){
+            unlink($category->photo);
+            $category->delete();
+            return response()->json(['success'=>'Category Delete Successfully!!']);
+
+        }else{
+            $category->delete();
+            return response()->json(['success'=>'Category Delete Successfully!!']);
+        }
+        
+
     }
+
+
     public function edit($id){
         $category = Category::find($id);
         return view('AdminPanel.category.edit_category',[

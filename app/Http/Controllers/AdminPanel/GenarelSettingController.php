@@ -11,11 +11,11 @@ class GenarelSettingController extends Controller
 
    public function genarelStore(Request $request)
    {
-   		$request->validate([
-   			"company_email"    => "email",
-   			"fav_icon" => "image",
-   			"logo" => "image",
-   		]);
+   		// $request->validate([
+   		// 	"company_email"    => "email",
+   		// 	"fav_icon" => "image",
+   		// 	"logo" => "image",
+   		// ]);
 
 
    		// fav icon save
@@ -42,6 +42,7 @@ class GenarelSettingController extends Controller
 	   			"fax_no"        => $request->fax_no,
 	   			"footer_text"   => $request->footer_text,
 	   			"address"       => $request->address,
+				"currency"    => $request->currency,
 	   			"fav_icon"       => $fav_dbUrl,
 	   			"logo"          => $logo_dbUrl,
 	   		]);
@@ -66,6 +67,7 @@ class GenarelSettingController extends Controller
 		   			"fax_no"      => $request->fax_no,
 		   			"footer_text" => $request->footer_text,
 		   			"address"     => $request->address,
+					"currency"    => $request->currency,
 		   			"fav_icon"     => $fav_dbUrl,
 		   		]);
 
@@ -85,6 +87,7 @@ class GenarelSettingController extends Controller
 		   			"fax_no"      => $request->fax_no,
 		   			"footer_text" => $request->footer_text,
 		   			"address"     => $request->address,
+					"currency"    => $request->currency,
 		   			"logo"        => $logo_dbUrl,
 		   		]);
    			}
@@ -101,6 +104,7 @@ class GenarelSettingController extends Controller
 	   			"fax_no"      => $request->fax_no,
 	   			"footer_text" => $request->footer_text,
 	   			"address"     => $request->address,
+				 "currency"    => $request->currency,
 	   			// "favIcon"     => $request->favIcon,
 	   			// "logo"        => $request->logo,
 	   		]);

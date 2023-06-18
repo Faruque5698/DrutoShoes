@@ -91,10 +91,10 @@
 
 
 
-                                       
+
 
                                      @endforeach
-                                   
+
 
                                     </tbody>
 
@@ -165,9 +165,11 @@ $(document).ready(function(){
                 })
 
                 $.ajax({
-                    type    : 'DELETE',
-                    url     : '/admin/brand-delete/'+delete_id,
-                    data    : data,
+                    type    : 'POST',
+                    url     : "{{ route('admin.brand.delete') }}",
+                    data    : {
+                        brand_id : delete_id,
+                    },
                     success : function(response){
                         Swal.fire(
                             response.success,

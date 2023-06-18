@@ -15,8 +15,8 @@ class CreateFavouriteProductsTable extends Migration
     {
         Schema::create('favourite_products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
+            $table->foreignId('user_id');
+            $table->foreignId('product_id');
             $table->timestamps();
 
 

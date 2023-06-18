@@ -37,31 +37,36 @@
                         @csrf
                         <div class="form-row">
                             <div class="col-12">
+                                <label>Size Name</label>
                                 <input type="hidden" name="id" value="{{ $size_edit->id }}">
                                 <input type="text" class="form-control @error('size_name') is-invalid @enderror" name="size_name" value="{{ $size_edit->size_name }}">
+                                @error('color_name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('color_name')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                           
                         </div>
-                        <hr>
-                       
-                        <div class="form-row">
-                            <select class="form-control @error('status') is-invalid @enderror" id="" name="status">
-                                <option selected>Status</option>
+                        <div class="form-row mb-2">
+                            <div class="col-12">
+                             <label>Status</label>
+                             <select class="form-control @error('status') is-invalid @enderror" id="" name="status">
+                               
                                 <option value="active" {{$size_edit -> status == 'active' ? 'Selected' : ''}}>Active</option>
                                 <option value="inactive" {{$size_edit -> status == 'inactive' ? 'Selected' : ''}}>Inactive</option>
 
                             </select>
+                            @error('status')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                           </div>
 
                         </div>
-                        @error('status')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                       
 
-                        <hr>
-                        <div class="col-2">
+                        <div class="form-row mb-2">
+                            <div class="col-2">
                             <input type="submit" class="form-control btn btn-primary" name="btn" id="btn" value="Update Size">
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -75,17 +75,17 @@
                             <div class="row mb-4">
                                 <div class="col-sm-2">
                                    <div class="carv-image">
-                                    <img src="{{ asset($ssl_page->images)  }}" width="120px" height="120px">
+                                    <img src="{{ asset($ssl_page->images) ?? ' '    }}" width="120px" height="120px">
                                   </div>
                                   <div class="carv-icon">
                                     <label for="upImage"><i class="fas fa-upload"></i></label>
                                     <input type="file" id="upImage"  name="image">
-                                    <input type="hidden" name="code" value="{{ $ssl_page->code }}">
+                                    <input type="hidden" name="code" value="{{ $ssl_page->code ?? " " }}">
                                   </div>
                                 </div>
                                 <div class="col-sm-10">
-                                  <h3>{{ $ssl_page->name }}</h3>
-                                  <p> {{ $ssl_page->description }}</p>
+                                  <h3>{{ $ssl_page->name ?? " " }}</h3>
+                                  <p> {{ $ssl_page->description ?? " " }}</p>
                                 </div>
                               </div>
                               <div class="row mb-2">
@@ -101,7 +101,7 @@
                                           <p class="mb-2">STORE ID</p>
                                        </div>
                                       <div class="col-sm-12">
-                                         <input type="text" name="client_id" value="{{ $ssl_page->client_id }}" class="text-muted form-control mb-0">
+                                         <input type="text" name="client_id" value="{{ $ssl_page->client_id ?? " " }}" class="text-muted form-control mb-0">
                                       </div>
                                       </div>
                                    </div>
@@ -111,7 +111,7 @@
                                           <p class="mb-2">STORE PASSWORD</p>
                                        </div>
                                       <div class="col-sm-12">
-                                         <input type="text" name="screet_key" value="{{ $ssl_page->screet_key }}" class="text-muted form-control mb-0">
+                                         <input type="text" name="screet_key" value="{{ $ssl_page->screet_key ?? ' '}}" class="text-muted form-control mb-0">
                                       </div>
                                       </div>
                                    </div>
